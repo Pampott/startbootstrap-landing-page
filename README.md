@@ -2,7 +2,7 @@
 
 > A WCAG 2.2 AA accessibility remediation case study on a real, widely-used Bootstrap 5 template.
 
-**Live demo (remediated):** _add your GitHub Pages link_
+**Live demo (remediated):** [Remediation landing page](https://pampott.github.io/startbootstrap-landing-page/)
 **Original template:** [startbootstrap.github.io/startbootstrap-landing-page](https://startbootstrap.github.io/startbootstrap-landing-page/)
 **Full audit (FR + EN):** [`/audit-accessibilite`](./audit-accessibilite)
 
