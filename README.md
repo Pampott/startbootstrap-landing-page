@@ -10,7 +10,9 @@
 
 ## Context
 
-The [StartBootstrap Landing Page](https://github.com/StartBootstrap/startbootstrap-landing-page) is a popular open-source template used by thousands of websites. Like many ready-made themes, it looks polished but ships with accessibility gaps that exclude users relying on assistive technology.
+The [StartBootstrap Landing Page](https://github.com/StartBootstrap/startbootstrap-landing-page) is one of the most popular free themes in the Bootstrap ecosystem. It looks professional, deploys in minutes, and is used as-is by thousands of websites. But behind the polished appearance, a keyboard user couldn't skip past the navigation to reach the content. A screen reader user heard decorative icons announced as noise, found no page landmarks, and encountered forms with no labels — just grey placeholder text that vanished on input.
+
+This isn't a theoretical scenario. It's the daily reality for millions of users: a site that *works* visually but is *silent or chaotic* for anyone not using a mouse and a screen.
 
 This project takes the template as-is and brings it to **WCAG 2.2 AA** conformance — without changing its visual design. The goal: demonstrate accessibility *remediation* of existing code, the kind of work most real-world projects actually need.
 
@@ -38,14 +40,27 @@ This project takes the template as-is and brings it to **WCAG 2.2 AA** conforman
 | 11 | Placeholder `href="#!"` links | 2.4.4 Link Purpose | Normalized link targets |
 | 12 | Empty meta description / author | Best practice (SEO + context) | Added meaningful values |
 
+## Key fixes explained
+
+**Ghost forms.** Both signup forms relied solely on placeholders to identify fields. A screen reader announced an unnamed input field. The fix: visually hidden `<label>` elements present for assistive technology. An additional detail: the "Submit" button was disabled via a CSS class (`.disabled`) with no semantic effect — a keyboard user could still activate it. Replaced with the native `disabled` attribute.
+
+**Decorative vs. meaningful images — backwards.** Bootstrap icons (purely decorative) were exposed to screen readers, creating noise. Conversely, the showcase section images — which carried meaning — were set as CSS backgrounds, completely invisible to assistive technology. Mirror fix: `aria-hidden="true"` on icons, `role="img"` + descriptive `aria-label` on meaningful backgrounds.
+
+**Missing page structure.** No `<main>` landmark, no skip link, a broken heading hierarchy (h1 → h3 → h5, skipping h2). A screen reader user had no way to understand the page structure or navigate efficiently. Complete rebuild of the h1 → h2 → h3 hierarchy and addition of a skip link visible on focus.
+
 ## Results
 
-- **Keyboard:** full navigation with a visible skip link and logical focus order
+- **Keyboard navigation:** complete page traversal with a functional skip link and logical focus order
 - **Screen reader:** correct landmarks, labelled forms, named controls, no noise from decorative elements
 - **Structure:** valid heading hierarchy and unique IDs
-- **No visual regression:** the design is untouched — only the underlying semantics changed
+- **Visual integrity:** the original design is strictly preserved — only the underlying semantics changed
+- **12 WCAG 2.2 AA violations** documented and fixed, covering **8 distinct success criteria**
 
 See the before/after breakdown and annotated screenshots in [`/audit-accessibilite`](./audit-accessibilite).
+
+## What this project demonstrates
+
+This case shows a remediation approach that respects existing work: no redesign, no "I would have done it differently," no visual regression. It's the ability to intervene surgically on production code — understand what actually blocks users, fix at the source (not in compiled HTML), document every decision, and deliver a verifiable result. This is exactly what a project needs when it must become compliant without rebuilding everything.
 
 ## Tools
 
